@@ -39,7 +39,7 @@ node {
 	}
 
 	
-	stage('5th. - Deploying Build Artifact to Tomcat Server'){
+	stage('5th. - Deploying Build Artifact to Tomcat Server A'){
 
 		echo "Deploying the Build Artifacts to Tomcat Server"
 
@@ -47,6 +47,17 @@ node {
 		url: 'http://192.168.43.212:8800/')], contextPath: null, 
 		onFailure: false, war: 'target/*.war'
 	}
+
+        
+	stage('6th. - Deploying Build Artifact to Tomcat Server B'){
+
+                echo "Deploying the Build Artifacts to Tomcat Server"
+
+                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin', path: '',
+                url: 'http://192.168.33.80:8180/')], contextPath: null,
+                onFailure: false, war: 'target/*.war'
+        }
+
 
 
 	stage('6th. - Scripted Pipeline Completed'){
