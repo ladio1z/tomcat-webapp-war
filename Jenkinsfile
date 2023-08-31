@@ -1,111 +1,59 @@
-pipeline { 
+node { 
 
-	agent any
+	def mavenName = tool name: "maven3"
 
-	tools{
-		maven 'maven3'
+	// properties([ pipelineTriggers([pollSCM('H/5 * * * *')]) ])
+
+
+	stage('1st. - Clone Code from SCM'){
+	
+		echo "Clonning the code from Remote Repo on GitHub"
+
+		git branch: 'scripted', changelog: false, poll: false, 
+		url: 'https://github.com/ladio1z/tomcat-webapp-war.git'
 	}
 
-       /*
-        triggers{
-		pollSCM('* * * * *')
+
+	stage('2nd. - Build the Scourc Code"){
+
+		echo "Building Artifacts from the Scource Code"
+
+		sh "${mavenName}/bin/mvn clean package"
 	}
-       */
 
-	stages{
+/*
+	stage('3rd. - Code Quality Test for SonarQube'){
+	
+		echo "Do Code Quality Scan Test"
 
-        	stage('1 - Clone from SCM'){
-			steps{
-				echo "Cloning from SCM "
-		                
-                                git branch: 'declarative', changelog: false, poll: false,
-				            url: 'https://github.com/ladio1z/SHLLC_tomcat-webapp-war.git'
-			}
-		}
+		sh "${mavenName}/bin/mvn sonar:sonar"
+	}
 
-        	stage('2 - Build Artifacts'){
-			steps{
-				echo " Building an Artifact"
-				sh "mvn clean package"
-			}
-		}
+*/
 
-		
-		/*
-        	stage('3 - Sonar'){
-			steps{
-				echo "Code Quality Test"
-				sh "mvn sonar:sonar"
-			}
-		}
-		*/
-                
+	stage('4th. - Intergrating Build Artifacts to Artifactory,Nexus'){
 
-                stage('3 - Storing Artifact in Nexus'){
-                        steps{
-                                echo "Keep artifact in Artifactory - Nexus"
-                                sh "mvn deploy"
-                        }
-                }
+		echo "Intergrate Build Artifacts to Nexus"
 
-              /*
-        	stage('4 - Needing Confirmation before'){
-			steps{
-				echo "Needing Confimation"
-                                
-                          	timeout(15) {
-					input message: "Please approve deployment "
-			        }           
-			}
-		}
-	       */
+		sh "${mavenName}/bin/mvn deploy"
+	}
+
+	
+	stage('5th. - Deploying Build Artifact to Tomcat Server'){
+
+		echo "Deploying the Build Artifacts to Tomcat Server"
+
+		deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin', path: '', 
+		url: 'http://192.168.43.212:8800/')], contextPath: null, 
+		onFailure: false, war: 'target/*.war'
+	}
 
 
-	        	
-		stage('5 - Deploying Artifact to Tomcat - A '){
-                        steps{
-                                echo "Deploy an artifact to Tomcat A"
-                                
-                                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin', 
-				                 path: '', url: 'http://192.168.43.212:8800/')], 
-		                		 contextPath: null, onFailure: false, war: '**/*.war'
-			 }
-                  } 
+	stage('6th. - Scripted Pipeline Completed'){
 
-                
-		 stage('6 - Deploying Artifact to Tomcat - B '){
-                        steps{
-                                echo "Deploy an artifact to Tomcat B"
-                                           
-                                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin',
-                                                 path: '', url: 'http://192.168.43.21:8180/')],
-                                                 contextPath: null, onFailure: false, war: '**/*.war'
-                         }
-                  }
+		echo "Completion of Scripted Pipeline"
 
-
-
-                /*
-                stage(' 7. - Trigging the Scripted Pipeline '){		
-	              steps{
-		       		echo "Triggering Upstream Declarative Pipeline"	
-		   
-		                build 'scripted1' 
-			}
-		}
-
-
-                stage('8. - Scripted Pipeline Done'){		
-	             steps{
-		           echo "Completion to Scripted Pipeline"	
-
-                           }
-		  }
-
-		*/
-
-
-	  }
+		echo "Thank YOU"
+	}
 
 }
-
