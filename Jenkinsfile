@@ -14,7 +14,7 @@ node {
 	}
 
 
-	stage('2nd. - Build the Scourc Code"){
+	stage('2nd. - Build the Scourc Code'){
 
 		echo "Building Artifacts from the Scource Code"
 
