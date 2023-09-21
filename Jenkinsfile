@@ -54,7 +54,7 @@ node {
                 echo "Deploying the Build Artifacts to Tomcat Server"
 
                 deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin', path: '',
-                url: 'http://192.168.33.80:8180/')], contextPath: null,
+                url: 'http://192.168.33.27:8810/')], contextPath: null,
                 onFailure: false, war: 'target/*.war'
         }
 
