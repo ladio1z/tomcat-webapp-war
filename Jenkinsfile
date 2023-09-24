@@ -49,27 +49,24 @@ pipeline {
                 }
 
               
-                /*
-
+                
                 stage(' 4. - Trigging the CD Declartive Pipeline '){		
 	              steps{
 		       		echo "Triggering Upstream Declarative Pipeline"	
 		   
-		                build 'scripted1' 
+		                build 'CD_Declarative_1v2' 
 			}
 		}
                
 
-                stage('8. - Scripted Pipeline Done'){		
+                stage('5. - CI Pipeline Done'){		
 	             steps{
-		           echo "Completion to Scripted Pipeline"	
+		           echo "Completion of CI Pipeline"	
 
                            }
 		  }
 
-		*/
-
-
+	
 	  }
 
 }
