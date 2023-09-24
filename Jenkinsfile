@@ -48,32 +48,17 @@ pipeline {
                         }
                 }
 
-              /*
-        	stage('4 - Needing Confirmation before'){
-			steps{
-				echo "Needing Confimation"
-                                
-                          	timeout(15) {
-					input message: "Please approve deployment "
-			        }           
-			}
-		}
-	       */
-
-
-
+              
                 /*
 
-                stage(' 7. - Trigging the Scripted Pipeline '){		
+                stage(' 4. - Trigging the CD Declartive Pipeline '){		
 	              steps{
 		       		echo "Triggering Upstream Declarative Pipeline"	
 		   
 		                build 'scripted1' 
 			}
 		}
-
-                
-
+               
 
                 stage('8. - Scripted Pipeline Done'){		
 	             steps{
