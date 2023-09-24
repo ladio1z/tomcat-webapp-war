@@ -1,3 +1,4 @@
+
 pipeline { 
 
 	agent any
@@ -7,25 +8,13 @@ pipeline {
 	}
 
        
-	stages{
-
-              /*
-        	stage('1 - Clone from SCM'){
-			steps{
-				echo "Cloning from SCM "
-		                
-                                git branch: 'declarative', changelog: false, poll: false,
-				            url: 'https://github.com/ladio1z/tomcat-webapp-war.git'
-			}
-		}
-	      */
-
-        	
+	stages{     	
 		
                 stage(' 1. - Trigging the CD Pipeline by the CI Pipeline'){		
 	              steps{
 		       		echo "Triggering Upstream CD Pipeline"	
-		  	                
+				echo " Building an Artifact"
+                                sh "mvn clean package"	  	                
 			}
 		}
 
@@ -53,9 +42,9 @@ pipeline {
 
                
 
-                stage('4. - CD Declarative Pipeline Done'){		
+                stage('4. - CD Pipeline Done'){		
 	             steps{
-		           echo "Completion to Scripted Pipeline"	
+		           echo "Completion of CD Pipeline"	
 
                            }
 		  }
