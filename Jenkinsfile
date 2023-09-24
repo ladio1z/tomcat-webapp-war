@@ -61,30 +61,6 @@ pipeline {
 	       */
 
 
-	        /*
-
-		stage('5 - Deploying Artifact to Tomcat - A '){
-                        steps{
-                                echo "Deploy an artifact to Tomcat A"
-                                
-                                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin', 
-				                 path: '', url: 'http://192.168.43.212:8800/')], 
-		                		 contextPath: null, onFailure: false, war: '**/*.war'
-			 }
-                  } 
-
-                
-		 stage('6 - Deploying Artifact to Tomcat - B '){
-                        steps{
-                                echo "Deploy an artifact to Tomcat B"
-                                           
-                                deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin',
-                                                 path: '', url: 'http://192.168.33.27:8810/')],
-                                                 contextPath: null, onFailure: false, war: '**/*.war'
-                         }
-                  }
-
-                */
 
                 /*
 
