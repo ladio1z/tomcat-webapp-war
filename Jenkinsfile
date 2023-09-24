@@ -19,7 +19,7 @@ pipeline {
 				echo "Cloning from SCM "
 		                
                                 git branch: 'declarative', changelog: false, poll: false,
-				            url: 'https://github.com/ladio1z/SHLLC_tomcat-webapp-war.git'
+				            url: 'https://github.com/ladio1z/tomcat-webapp-war.git'
 			}
 		}
 
@@ -61,7 +61,8 @@ pipeline {
 	       */
 
 
-	        	
+	        /*
+
 		stage('5 - Deploying Artifact to Tomcat - A '){
                         steps{
                                 echo "Deploy an artifact to Tomcat A"
@@ -78,14 +79,15 @@ pipeline {
                                 echo "Deploy an artifact to Tomcat B"
                                            
                                 deploy adapters: [tomcat9(credentialsId: 'Tomcat_Admin',
-                                                 path: '', url: 'http://192.168.43.21:8180/')],
+                                                 path: '', url: 'http://192.168.33.27:8810/')],
                                                  contextPath: null, onFailure: false, war: '**/*.war'
                          }
                   }
 
-
+                */
 
                 /*
+
                 stage(' 7. - Trigging the Scripted Pipeline '){		
 	              steps{
 		       		echo "Triggering Upstream Declarative Pipeline"	
@@ -93,6 +95,8 @@ pipeline {
 		                build 'scripted1' 
 			}
 		}
+
+                
 
 
                 stage('8. - Scripted Pipeline Done'){		
