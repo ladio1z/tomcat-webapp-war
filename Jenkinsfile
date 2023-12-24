@@ -29,6 +29,7 @@ pipeline {
 			steps{
 				echo " Building an Artifact"
 				sh "mvn clean package"
+				// sh "mvn clean install"
 			}
 		}
 
