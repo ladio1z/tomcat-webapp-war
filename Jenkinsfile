@@ -1,8 +1,6 @@
 pipeline { 
 
-	agent {
-		label 'agent1'
-	}
+	agent any 
 
 	tools{
 		maven 'maven3'
