@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool: 
-  name: MyLocalPoolf
+  name: 'Azure Pipelines' 
 
 
 steps:
