@@ -7,8 +7,10 @@ trigger:
 - main
 
 pool: 
-  name: 'MyLocalPoolf' 
-
+  name: MyLocalPoolf
+  demands:
+  - maven
+  - Agent.Version -gtVersion 2.163.1
 
 steps:
 - task: Maven@3
